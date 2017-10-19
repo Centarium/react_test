@@ -20,6 +20,20 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+/*class Button extends React.Component{
+    constructor(props)
+    {
+        super(props);
+    }
+    render(props)
+    {
+        const cssclasses = classNames('Button',props.className);
+        return props.href
+            ? <a {...props} className={cssclasses} />
+            : <button {...props} className={cssclasses} />;
+    }
+}*/
+
 var Logo = (function (_React$Component) {
     _inherits(Logo, _React$Component);
 
@@ -41,25 +55,10 @@ var Logo = (function (_React$Component) {
 
 ;
 
-var Button = (function (_React$Component2) {
-    _inherits(Button, _React$Component2);
-
-    function Button(props) {
-        _classCallCheck(this, Button);
-
-        _get(Object.getPrototypeOf(Button.prototype), 'constructor', this).call(this, props);
-    }
-
-    _createClass(Button, [{
-        key: 'render',
-        value: function render(props) {
-            var cssclasses = (0, _classnames2['default'])('Button', props.className);
-            return props.href ? _react2['default'].createElement('a', _extends({}, props, { className: cssclasses })) : _react2['default'].createElement('button', _extends({}, props, { className: cssclasses }));
-        }
-    }]);
-
-    return Button;
-})(_react2['default'].Component);
+function Button(props) {
+    var cssclasses = (0, _classnames2['default'])('Button', props.className);
+    return props.href ? _react2['default'].createElement('a', _extends({}, props, { className: cssclasses })) : _react2['default'].createElement('button', _extends({}, props, { className: cssclasses }));
+}
 
 Button.propTypes = {
     href: _react2['default'].PropTypes.string

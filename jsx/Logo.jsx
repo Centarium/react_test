@@ -8,7 +8,7 @@ class Logo extends React.Component {
 
 import React, {PropTypes} from 'react';
 
-class Button extends React.Component{
+/*class Button extends React.Component{
     constructor(props)
     {
         super(props);
@@ -20,6 +20,12 @@ class Button extends React.Component{
             ? <a {...props} className={cssclasses} />
             : <button {...props} className={cssclasses} />;
     }
+}*/
+function Button(props) {
+    const cssclasses = classNames('Button', props.className);
+    return props.href
+        ? <a {...props} className={cssclasses} />
+        : <button {...props} className={cssclasses} />;
 }
 
 Button.propTypes = {

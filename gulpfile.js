@@ -8,7 +8,6 @@ var notify       = require('gulp-notify');
 var uglify       = require('gulp-uglify');
 var reload       = browserSync.reload;
 var sourcemaps   = require('gulp-sourcemaps');
-var classNames = require('classnames');
 var concat      = require('gulp-concat');
 
 var jsFiles = {
