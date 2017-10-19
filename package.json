@@ -1,0 +1,28 @@
+{
+  "name": "example.com",
+  "version": "1.0.0",
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "classnames": "^2.2.5",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-babel": "^5.3.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^1.1.1",
+    "gulp-filter": "^3.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-newer": "^0.5.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.12.0",
+    "gulp-uglify": "^3.0.0",
+    "react": "^0.14.9",
+    "react-dom": "^0.14.9",
+    "uglify": "^0.1.5"
+  }
+}

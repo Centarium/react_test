@@ -1,0 +1,5 @@
+var Logo = React.createClass({/* ... */});
+
+теперь
+
+class Logo extends React.Component {/* ... */}
