@@ -16,6 +16,12 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+/**
+ * Тоже, что
+ * import React from 'react';
+    const PropTypes = React.PropTypes;
+ */
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -53,9 +59,7 @@ var Logo = (function (_React$Component) {
     return Logo;
 })(_react2['default'].Component);
 
-;
-
-function Button(props) {
+;function Button(props) {
     var cssclasses = (0, _classnames2['default'])('Button', props.className);
     return props.href ? _react2['default'].createElement('a', _extends({}, props, { className: cssclasses })) : _react2['default'].createElement('button', _extends({}, props, { className: cssclasses }));
 }

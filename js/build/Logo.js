@@ -18,6 +18,12 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+/**
+ * Тоже, что
+ * import React from 'react';
+    const PropTypes = React.PropTypes;
+ */
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -55,9 +61,7 @@ var Logo = (function (_React$Component) {
     return Logo;
 })(_react2['default'].Component);
 
-;
-
-function Button(props) {
+;function Button(props) {
     var cssclasses = (0, _classnames2['default'])('Button', props.className);
     return props.href ? _react2['default'].createElement('a', _extends({}, props, { className: cssclasses })) : _react2['default'].createElement('button', _extends({}, props, { className: cssclasses }));
 }
@@ -122,7 +126,7 @@ ReactDOM.render(_react2['default'].createElement(
         )
     )
 ), document.getElementById('pad'));;
-}).call(this,require("pBGvAp"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_19fe8eaa.js","/")
+}).call(this,require("pBGvAp"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_685d25.js","/")
 },{"buffer":3,"classnames":4,"pBGvAp":33,"react":162}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';

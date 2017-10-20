@@ -6,6 +6,12 @@ class Logo extends React.Component {
     }
 };
 
+/**
+ * Тоже, что
+ * import React from 'react';
+    const PropTypes = React.PropTypes;
+ */
+
 import React, {PropTypes} from 'react';
 
 /*class Button extends React.Component{
