@@ -13,6 +13,7 @@
         <li><a href="/examples/select.php">select</a></li>
         <li><a href="/examples/whinepad.php">whinepad</a></li>
         <li><a href="/examples/components.php">components</a></li>
+        <li><a href="/examples/whinepad_component.php">whinepad Component</a></li>
     </ul>
 
 

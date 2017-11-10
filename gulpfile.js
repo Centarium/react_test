@@ -44,19 +44,18 @@ gulp.task('concat',function () {
 
 gulp.task('components',['concat'],function () {
     return gulp.src('./js/build/build.jsx')
-        //.pipe(concat('build.jsx'))
         .pipe(babel())
         .pipe( browserify({insertGlobals : true}) )
         .pipe( gulp.dest(buildPaths.components) )
 });
 
 gulp.task('watch', function () {
-    gulp.watch(jsFiles.jsx, ['scripts']).on('change', function (e) {
-        console.log('Jsx converted');
-    })
-    /*gulp.watch(jsFiles.components, ['components']).on('change', function (e) {
+    /*gulp.watch(jsFiles.jsx, ['scripts']).on('change', function (e) {
         console.log('Jsx converted');
     })*/
+    gulp.watch(jsFiles.components, ['components']).on('change', function (e) {
+        console.log('Jsx converted');
+    })
 } );
 
 

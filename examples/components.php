@@ -9,8 +9,7 @@
 </head>
 
 <div id="pad"></div>
-<!--<script src="../js/Logo.js"></script>-->
-<script src="../js/build/Logo.js?"></script>
+<script src="../js/build/build.js?"></script>
 <style>
 
     .Button {
@@ -30,6 +29,10 @@
     }
     .Button:hover {
         transform: scale(1.1);
+    }
+    .RatingOn
+    {
+        color:red;
     }
 
 </style>
