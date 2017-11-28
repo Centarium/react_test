@@ -1,3 +1,6 @@
+import React, {Component,PropTypes} from 'react';
+import classNames from 'classnames';
+
 class Excel extends Component
 {
     constructor(props)
@@ -237,6 +240,24 @@ class Excel extends Component
     }
 }
 
+var headers = localStorage.getItem('headers');
+var data = localStorage.getItem('data');
+if (!headers) {
+    headers = ['Title', 'Year', 'Rating', 'Comments'];
+    data = [['Test', '2015', '3', 'meh']];
+}
+
+
+ReactDOM.render(
+    <div>
+        <h1>
+            <Logo /> Welcome to Excel!
+        </h1>
+        <Excel headers={headers} initialData={data} />
+    </div>,
+    document.getElementById('pad')
+);
+
 Excel.propTypes = {
     schema: PropTypes.arrayOf(
         PropTypes.object
@@ -245,11 +266,15 @@ Excel.propTypes = {
         PropTypes.object
     ),
     onDataChange: PropTypes.func
-}
+};
 
 export default Excel
 
-
+/*ReactDOM.render(
+    React.createElement(Excel, {
+    }),
+    document.getElementById("app")
+);*/
 
 
 

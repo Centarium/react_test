@@ -40,7 +40,7 @@ gulp.task('concat',function () {
     return gulp.src(jsFiles.components)
         .pipe(concat('build.jsx'))
         .pipe( gulp.dest(buildPaths.components) )
-})
+});
 
 gulp.task('components',['concat'],function () {
     return gulp.src('./js/build/build.jsx')
@@ -49,12 +49,22 @@ gulp.task('components',['concat'],function () {
         .pipe( gulp.dest(buildPaths.components) )
 });
 
+gulp.task('module_components',[],function () {
+    return gulp.src(jsFiles.jsx)
+        .pipe(babel())
+        .pipe( browserify({insertGlobals : true}) )
+        .pipe( gulp.dest(buildPaths.js) )
+});
+
 gulp.task('watch', function () {
     /*gulp.watch(jsFiles.jsx, ['scripts']).on('change', function (e) {
         console.log('Jsx converted');
     })*/
     gulp.watch(jsFiles.components, ['components']).on('change', function (e) {
         console.log('Jsx converted');
+    })
+    gulp.watch(jsFiles.jsx, ['module_components']).on('change', function (e) {
+        console.log('Jsx module converted');
     })
 } );
 

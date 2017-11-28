@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import React, {PropTypes} from 'react';
 
 class Logo extends React.Component {
     render() {
@@ -12,7 +13,7 @@ class Logo extends React.Component {
     const PropTypes = React.PropTypes;
  */
 
-import React, {PropTypes} from 'react';
+
 
 /*class Button extends React.Component{
     constructor(props)

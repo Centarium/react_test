@@ -2,6 +2,10 @@
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -10,124 +14,286 @@ var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_ag
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var Logo = (function (_React$Component) {
-    _inherits(Logo, _React$Component);
+var _classnames = require('classnames');
 
-    function Logo() {
-        _classCallCheck(this, Logo);
+var _classnames2 = _interopRequireDefault(_classnames);
 
-        _get(Object.getPrototypeOf(Logo.prototype), 'constructor', this).apply(this, arguments);
+var Excel = (function (_Component) {
+    _inherits(Excel, _Component);
+
+    function Excel(props) {
+        _classCallCheck(this, Excel);
+
+        _get(Object.getPrototypeOf(Excel.prototype), 'constructor', this).call(this, props);
+        this.state = {
+            data: this.props.initialData,
+            sortby: null,
+            descending: false,
+            edit: null,
+            dialog: null
+        };
     }
 
-    _createClass(Logo, [{
+    _createClass(Excel, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.setState({ data: nextProps.initialData });
+        }
+    }, {
+        key: '_fireDataChange',
+        value: function _fireDataChange(data) {
+            this.props.onDataChange(data);
+        }
+    }, {
+        key: '_sort',
+        value: function _sort(key) {
+            var data = Array.from(this.state.data);
+            var descending = this.state.sortby === key && !this.state.descending;
+            data.sort(function (a, b) {
+                return descending ? a[column] < b[column] ? 1 : -1 : a[column] > b[column] ? 1 : -1;
+            });
+            this.setState({
+                data: data,
+                sortby: key,
+                descending: descending
+            });
+            this._fireDataChange(data);
+        }
+    }, {
+        key: '_showEditor',
+        value: function _showEditor(e) {
+            this.setState({ edit: {
+                    row: parseInt(e.target.dataset.row, 10),
+                    key: e.target.dataset.key
+                } });
+        }
+    }, {
+        key: '_save',
+        value: function _save(e) {
+            e.preventDefault();
+            var value = this.refs.input.getValue();
+            var data = Array.from(this.state.data);
+            data[this.state.edit.row][this.state.edit.key] = value;
+            this.setState({
+                edit: null,
+                data: data
+            });
+            this._fireDataChange(data);
+        }
+    }, {
+        key: '_actionClick',
+        value: function _actionClick(rowidx, action) {
+            this.setState({ dialog: { type: action, idx: rowidx } });
+        }
+    }, {
+        key: '_closeDialog',
+        value: function _closeDialog() {
+            this.setState({ dialog: null });
+        }
+    }, {
+        key: '_deleteConfirmationClick',
+        value: function _deleteConfirmationClick(action) {
+            if (action === 'dismiss') {
+                this._closeDialog();
+                return;
+            }
+            var data = Array.from(this.state.data);
+            data.splice(this.state.dialog.idx, 1);
+            this.setState({
+                dialog: null,
+                data: data
+            });
+            this._fireDataChange(data);
+        }
+    }, {
+        key: '_saveDataDialog',
+        value: function _saveDataDialog(action) {
+            if (action === 'dismiss') {
+                this._closeDialog();
+                return;
+            }
+            var data = Array.from(this.state.data);
+            data[this.state.dialog.idx] = this.refs.form.getData();
+            this.setState({
+                dialog: null,
+                data: data
+            });
+            this._fireDataChange(data);
+        }
+    }, {
+        key: '_renderDeleteDialog',
+        value: function _renderDeleteDialog() {
+            var first = this.state.data[this.state.dialog.idx];
+            var nameguess = first[Object.keys(first)[0]];
+            return _react2['default'].createElement(
+                Dialog,
+                {
+                    modal: true,
+                    header: 'Confirm deletion',
+                    confirmLabel: 'Delete',
+                    onAction: this._deleteConfirmationClick().bind(this) },
+                'Are you sure want to delete "${nameguess}"? '
+            );
+        }
+    }, {
+        key: '_renderFormDialog',
+        value: function _renderFormDialog(readonly) {
+            return _react2['default'].createElement(
+                Dialog,
+                {
+                    modal: true,
+                    header: readonly ? 'Item info' : 'Edit item',
+                    confirmLabel: readonly ? 'ok' : 'Save',
+                    hasCancel: !readonly,
+                    onAction: this._saveDataDialog.bind(this) },
+                _react2['default'].createElement(Form, { ref: 'form', fields: this.props.schema,
+                    initialData: this.state.data[this.state.dialog.idx],
+                    readonly: readonly })
+            );
+        }
+    }, {
+        key: '_renderDialog',
+        value: function _renderDialog() {
+            if (!this.state.dialog) {
+                return null;
+            }
+            switch (this.state.dialog.type) {
+                case 'delete':
+                    return this._renderDeleteDialog();
+                case 'info':
+                    return this._renderFormDialog(true);
+                case 'edit':
+                    return this._renderFormDialog();
+                default:
+                    throw Error('Unexpected dialog type ${this.state.dialog.type} ');
+            }
+        }
+    }, {
+        key: '_renderTable',
+        value: function _renderTable() {
+            var _this = this;
+
+            return _react2['default'].createElement(
+                'table',
+                null,
+                _react2['default'].createElement(
+                    'thead',
+                    null,
+                    _react2['default'].createElement(
+                        'tr',
+                        null,
+                        this.props.schema.map(function (item) {
+                            if (!item.show) {
+                                return null;
+                            }
+                            var title = item.label;
+                            if (_this.state.sortby === item.id) {
+                                title += _this.state.descending ? '↑' : ' ↓';
+                            }
+                            return _react2['default'].createElement(
+                                'th',
+                                {
+                                    className: 'schema-${item.id}',
+                                    key: item.id,
+                                    onClick: _this._sort.bind(_this, item.id) },
+                                title
+                            );
+                        }, this),
+                        _react2['default'].createElement(
+                            'th',
+                            { className: 'ExcelNotSortable' },
+                            'Actions'
+                        )
+                    )
+                ),
+                _react2['default'].createElement(
+                    'tbody',
+                    { onDoubleClick: this._showEditor.bind(this) },
+                    this.state.data.map(function (row, rowidx) {
+                        return _react2['default'].createElement(
+                            'tr',
+                            { key: rowidx },
+                            Object.keys(row).map(function (cell, idx) {
+                                var _classNames;
+
+                                var schema = _this.props.schema[idx];
+                                if (!schema || !schema.show) {
+                                    return null;
+                                }
+                                var isRating = schema.type === 'rating';
+                                var edit = _this.state.edit;
+                                var content = row[cell];
+                                if (!isRating && edit && edit.row === rowidx && edit.key === schema.id) {
+                                    content = _react2['default'].createElement(
+                                        'form',
+                                        { onSubmit: _this._save().bind(_this) },
+                                        _react2['default'].createElement(FormInput, _extends({ ref: 'input' }, schema, { defaultValue: content }))
+                                    );
+                                } else if (isRating) {
+                                    content = _react2['default'].createElement(Rating, { readonly: true, defaultValue: Number(content) });
+                                }
+                                return _react2['default'].createElement(
+                                    'td',
+                                    {
+                                        className: (0, _classnames2['default'])((_classNames = {}, _defineProperty(_classNames, 'schema-${schema.id}', true), _defineProperty(_classNames, 'ExcelEditable', !isRating), _defineProperty(_classNames, 'ExcelDataLeft', schema.align === 'left'), _defineProperty(_classNames, 'ExcelDataRight', schema.align === 'right'), _defineProperty(_classNames, 'ExcelDataCenter', schema.align !== 'left' && schema.align !== 'right'), _classNames)),
+                                        key: idx,
+                                        'data-row': rowidx,
+                                        'data-key': schema.id
+                                    },
+                                    content
+                                );
+                            }, _this),
+                            _react2['default'].createElement(
+                                'td',
+                                { className: 'ExcelDataCenter' },
+                                _react2['default'].createElement(Actions, { onAction: _this._actionClick.bind(_this, rowidx) })
+                            )
+                        );
+                    }, this),
+                    '); }); }, this)}'
+                )
+            );
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2['default'].createElement('div', { className: 'Logo' });;
+            return _react2['default'].createElement(
+                'div',
+                { className: 'Excel' },
+                this._renderTable(),
+                this._renderDialog()
+            );
         }
     }]);
 
-    return Logo;
-})(_react2['default'].Component);
+    return Excel;
+})(_react.Component);
 
-;
+Excel.propTypes = {
+    schema: _react.PropTypes.arrayOf(_react.PropTypes.object),
+    initialData: _react.PropTypes.arrayOf(_react.PropTypes.object),
+    onDataChange: _react.PropTypes.func
+};;
 
-/**
- * Тоже, что
- * import React from 'react';
-    const PropTypes = React.PropTypes;
- */
+exports['default'] = Excel;
 
-/*class Button extends React.Component{
-    constructor(props)
-    {
-        super(props);
-    }
-    render(props)
-    {
-        const cssclasses = classNames('Button',props.className);
-        return props.href
-            ? <a {...props} className={cssclasses} />
-            : <button {...props} className={cssclasses} />;
-    }
-}*/
-function Button(props) {
-    var cssclasses = (0, _classnames2['default'])('Button', props.className);
-    return props.href ? _react2['default'].createElement('a', _extends({}, props, { className: cssclasses })) : _react2['default'].createElement('button', _extends({}, props, { className: cssclasses }));
-}
-
-Button.propTypes = {
-    href: _react2['default'].PropTypes.string
-};
-
-ReactDOM.render(_react2['default'].createElement(
-    'div',
-    { style: { padding: '20px' } },
-    _react2['default'].createElement(
-        'h1',
-        null,
-        'Component discoverer'
-    ),
-    _react2['default'].createElement(
-        'h2',
-        null,
-        'Logo'
-    ),
-    _react2['default'].createElement(
-        'div',
-        { style: { display: 'inline-block', background: 'purple' } },
-        _react2['default'].createElement(Logo, null)
-    ),
-    _react2['default'].createElement(
-        'h2',
-        null,
-        'Buttons'
-    ),
-    _react2['default'].createElement(
-        'div',
-        null,
-        'Button with onClick:',
-        _react2['default'].createElement(
-            Button,
-            { onClick: function () {
-                    return alert('ouch');
-                } },
-            'Click me '
-        )
-    ),
-    _react2['default'].createElement(
-        'div',
-        null,
-        'A link: ',
-        _react2['default'].createElement(
-            Button,
-            { href: 'http://reactjs.com' },
-            'Follow me'
-        )
-    ),
-    _react2['default'].createElement(
-        'div',
-        null,
-        'Custom class name: ',
-        _react2['default'].createElement(
-            Button,
-            { className: 'custom' },
-            'I do nothing'
-        )
-    )
-), document.getElementById('pad'));;
-}).call(this,require("pBGvAp"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_22070d10.js","/")
+/*ReactDOM.render(
+    React.createElement(Excel, {
+    }),
+    document.getElementById("app")
+);*/
+module.exports = exports['default'];
+}).call(this,require("pBGvAp"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_d5039e4f.js","/")
 },{"buffer":3,"classnames":4,"pBGvAp":33,"react":162}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
