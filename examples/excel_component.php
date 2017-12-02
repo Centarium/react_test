@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="../css/excel.css">
 </head>
 
-<div id="app"></div>
-<script src="../js/build/build.js"></script>
-<script src="../js/excel_component.js?12"></script>
+<div id="excel"></div>
+<div id="pad"></div>
+
+
+<script src="../js/build/build.js?1"></script>
+<script src="../js/excel_component.js?11"></script>

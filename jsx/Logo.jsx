@@ -61,4 +61,6 @@ ReactDOM.render(
 
     </div>,
     document.getElementById('pad')
-);;
+);
+
+export default Logo

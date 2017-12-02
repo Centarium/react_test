@@ -1,3 +1,4 @@
+import Logo from '../js/Logo.js';
 import React, {Component,PropTypes} from 'react';
 import classNames from 'classnames';
 
@@ -247,17 +248,6 @@ if (!headers) {
     data = [['Test', '2015', '3', 'meh']];
 }
 
-
-ReactDOM.render(
-    <div>
-        <h1>
-            <Logo /> Welcome to Excel!
-        </h1>
-        <Excel headers={headers} initialData={data} />
-    </div>,
-    document.getElementById('pad')
-);
-
 Excel.propTypes = {
     schema: PropTypes.arrayOf(
         PropTypes.object
@@ -268,13 +258,18 @@ Excel.propTypes = {
     onDataChange: PropTypes.func
 };
 
-export default Excel
 
-/*ReactDOM.render(
-    React.createElement(Excel, {
-    }),
-    document.getElementById("app")
-);*/
+ReactDOM.render(
+    <div>
+        <h1>
+            <Logo /> Welcome to Excel!
+        </h1>
+        <Excel headers={headers} initialData={data} />
+    </div>,
+    document.getElementById('excel')
+);
+
+export default Excel
 
 
 

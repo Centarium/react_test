@@ -279,21 +279,34 @@ var Excel = (function (_Component) {
     return Excel;
 })(_react.Component);
 
+var headers = localStorage.getItem('headers');
+var data = localStorage.getItem('data');
+if (!headers) {
+    headers = ['Title', 'Year', 'Rating', 'Comments'];
+    data = [['Test', '2015', '3', 'meh']];
+}
+
 Excel.propTypes = {
     schema: _react.PropTypes.arrayOf(_react.PropTypes.object),
     initialData: _react.PropTypes.arrayOf(_react.PropTypes.object),
     onDataChange: _react.PropTypes.func
-};;
+};
+
+ReactDOM.render(_react2['default'].createElement(
+    'div',
+    null,
+    _react2['default'].createElement(
+        'h1',
+        null,
+        _react2['default'].createElement(Logo, null),
+        ' Welcome to Excel!'
+    ),
+    _react2['default'].createElement(Excel, { headers: headers, initialData: data })
+), document.getElementById('excel'));
 
 exports['default'] = Excel;
-
-/*ReactDOM.render(
-    React.createElement(Excel, {
-    }),
-    document.getElementById("app")
-);*/
 module.exports = exports['default'];
-}).call(this,require("pBGvAp"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_d5039e4f.js","/")
+}).call(this,require("pBGvAp"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_cd00d2fc.js","/")
 },{"buffer":3,"classnames":4,"pBGvAp":33,"react":162}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
